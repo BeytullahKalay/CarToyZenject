@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class FlyingCar : MonoBehaviour
@@ -9,19 +8,44 @@ public class FlyingCar : MonoBehaviour
     [SerializeField] private float flowingDistance;
     [SerializeField] float moveForce, turnTorque;
     [SerializeField] private float flowingFrequency = 3;
-    
 
 
     [SerializeField] Transform[] anchors = new Transform[4];
     RaycastHit[] hits = new RaycastHit[4];
 
+    private float _horizontalInput, _verticalInput;
+
+    private CarTrailController _carTrailController;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _carTrailController = GetComponentInChildren<CarTrailController>();
     }
 
     private void Update()
     {
+        GetInputs();
+
+        HandleTrails();
+    }
+
+    private void HandleTrails()
+    {
+        if (_verticalInput != 0)
+        {
+            _carTrailController.OpenTrails();
+        }
+        else
+        {
+            _carTrailController.CloseTrails();
+        }
+    }
+
+    private void GetInputs()
+    {
+        _horizontalInput = Input.GetAxis("Horizontal");
+        _verticalInput = Input.GetAxis("Vertical");
     }
 
     void FixedUpdate()
@@ -29,9 +53,8 @@ public class FlyingCar : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             ApplyForce(anchors[i], hits[i]);
-
-            _rb.AddForce(Input.GetAxis("Vertical") * moveForce * transform.forward);
-            _rb.AddTorque(Input.GetAxis("Horizontal") * turnTorque * transform.up);
+            _rb.AddForce(_verticalInput * moveForce * transform.forward);
+            _rb.AddTorque(_horizontalInput * turnTorque * transform.up);
         }
     }
 
