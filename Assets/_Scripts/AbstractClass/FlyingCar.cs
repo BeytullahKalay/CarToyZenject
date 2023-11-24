@@ -2,15 +2,18 @@ using UnityEngine;
 
 public abstract class FlyingCar : MonoBehaviour
 {
+    [SerializeField] private float stabilizationLerpSpeed = 3;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] Transform[] anchors = new Transform[4];
+    
     private Rigidbody _rb;
-
     protected float Multiplier;
     protected float FlowingDistance;
     protected float MoveForce, TurnTorque;
     protected float FlowingFrequency = 3;
+
     
-    [SerializeField] Transform[] anchors = new Transform[4];
-    RaycastHit[] hits = new RaycastHit[4];
+    private RaycastHit[] hits = new RaycastHit[4];
 
 
     private ICarInput _carInput;
@@ -21,7 +24,6 @@ public abstract class FlyingCar : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _carInput = GetComponent<ICarInput>();
     }
-
 
 
     void FixedUpdate()
@@ -36,12 +38,17 @@ public abstract class FlyingCar : MonoBehaviour
 
     private void ApplyForce(Transform anchor, RaycastHit hit)
     {
-        if (Physics.Raycast(anchor.position, -anchor.up * 3, out hit))
+        if (Physics.Raycast(anchor.position, -anchor.up * 3, out hit,whatIsGround))
         {
             var movingFlowDistance = FlowingDistance * Mathf.Sin(Time.time * FlowingFrequency);
             float force = Mathf.Abs(1 / (hit.point.y - anchor.position.y));
             _rb.AddForceAtPosition(transform.up * (force * (Multiplier + movingFlowDistance)), anchor.position,
                 ForceMode.Acceleration);
+        }
+        else
+        {
+            var tRot = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, 0));
+            transform.rotation = Quaternion.Slerp(transform.rotation, tRot, stabilizationLerpSpeed * Time.fixedDeltaTime);
         }
     }
 }

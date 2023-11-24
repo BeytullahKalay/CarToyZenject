@@ -3,14 +3,13 @@ using Zenject;
 public class EnemyMotorcycleFlyingCar : FlyingCar
 {
     [Inject]
-    private void Constructor(GameSettingsInstaller.CarSettings carSettings)
+    private void Constructor(GameSettingsInstaller.CarSettings.EnemyMotorcycleSetting carSettings)
     {
-        var enemyMotorcycleSettings = carSettings.EnemyMotorcycleSettings;
-        
-        Multiplier = enemyMotorcycleSettings.MoveSettings.Multiplier;
-        MoveForce = enemyMotorcycleSettings.MoveSettings.MoveForce;
-        TurnTorque = enemyMotorcycleSettings.MoveSettings.TurnForce;
-        FlowingDistance = enemyMotorcycleSettings.FlowingSettings.FlowingDistance;
-        FlowingFrequency = enemyMotorcycleSettings.FlowingSettings.FlowingFrequency;
+        var settings = carSettings.settings;
+        Multiplier = settings.MoveSettings.Multiplier;
+        MoveForce = settings.MoveSettings.MoveForce;
+        TurnTorque = settings.MoveSettings.TurnForce;
+        FlowingDistance = settings.FlowingSettings.FlowingDistance;
+        FlowingFrequency = settings.FlowingSettings.FlowingFrequency;
     }
 }

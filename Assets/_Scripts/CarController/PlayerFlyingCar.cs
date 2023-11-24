@@ -1,17 +1,15 @@
-
 using Zenject;
 
 public class PlayerFlyingCar : FlyingCar
 {
     [Inject]
-    private void Constructor(GameSettingsInstaller.CarSettings carSettings)
+    private void Constructor(GameSettingsInstaller.CarSettings.PlayerFlyingCarSetting carSettings)
     {
-        var playerCarSettings = carSettings.PlayerCarSettings;
-        
-        Multiplier = playerCarSettings.MoveSettings.Multiplier;
-        MoveForce = playerCarSettings.MoveSettings.MoveForce;
-        TurnTorque = playerCarSettings.MoveSettings.TurnForce;
-        FlowingDistance = playerCarSettings.FlowingSettings.FlowingDistance;
-        FlowingFrequency = playerCarSettings.FlowingSettings.FlowingFrequency;
+        var settings = carSettings.settings;
+        Multiplier = settings.MoveSettings.Multiplier;
+        MoveForce = settings.MoveSettings.MoveForce;
+        TurnTorque = settings.MoveSettings.TurnForce;
+        FlowingDistance = settings.FlowingSettings.FlowingDistance;
+        FlowingFrequency = settings.FlowingSettings.FlowingFrequency;
     }
 }

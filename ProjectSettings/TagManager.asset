@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Terrain
+  - Circle
   layers:
   - Default
   - TransparentFX

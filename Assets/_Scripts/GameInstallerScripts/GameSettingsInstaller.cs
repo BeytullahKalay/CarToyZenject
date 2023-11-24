@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -5,38 +6,64 @@ using Zenject;
 public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 {
     [SerializeField] private CarSettings carSettings;
+    [SerializeField] private CircleSettings circleSettings;
 
     public override void InstallBindings()
     {
         Container.BindInstance(carSettings);
+        Container.BindInstance(circleSettings);
     }
 
-    [System.Serializable]
+    [Serializable]
     public class CarSettings
     {
-        public Settings PlayerCarSettings;
-        public Settings EnemyMotorcycleSettings;
-    }
+        public EnemyMotorcycleSetting EnemyMotorcycle;
+        public PlayerFlyingCarSetting PlayerFlyingCar;
 
-    [System.Serializable]
-    public class Settings
-    {
-        public Move MoveSettings;
-        public Flowing FlowingSettings;
-
-        [System.Serializable]
-        public class Move
+        [Serializable]
+        public class EnemyMotorcycleSetting
         {
-            public float Multiplier;
-            public float MoveForce;
-            public float TurnForce;
+            public Settings settings;
         }
 
-        [System.Serializable]
-        public class Flowing
+        [Serializable]
+        public class PlayerFlyingCarSetting
         {
-            public float FlowingDistance;
-            public float FlowingFrequency;
+            public Settings settings;
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public Move MoveSettings;
+            public Flowing FlowingSettings;
+
+            [Serializable]
+            public class Move
+            {
+                public float Multiplier;
+                public float MoveForce;
+                public float TurnForce;
+            }
+
+            [Serializable]
+            public class Flowing
+            {
+                public float FlowingDistance;
+                public float FlowingFrequency;
+            }
+        }
+    }
+
+
+    [Serializable]
+    public class CircleSettings
+    {
+        [Serializable]
+        public class Settings
+        {
+            public float ScalingSpeed;
+            public float ScalingMultiplier;
         }
     }
 }

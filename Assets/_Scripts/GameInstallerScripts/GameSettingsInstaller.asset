@@ -13,19 +13,21 @@ MonoBehaviour:
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
   carSettings:
-    PlayerCarSettings:
-      MoveSettings:
-        Multiplier: 90
-        MoveForce: 5000
-        TurnForce: 1000
-      FlowingSettings:
-        FlowingDistance: 5
-        FlowingFrequency: 3
-    EnemyMotorcycleSettings:
-      MoveSettings:
-        Multiplier: 40
-        MoveForce: 3000
-        TurnForce: 1000
-      FlowingSettings:
-        FlowingDistance: 5
-        FlowingFrequency: 3
+    EnemyMotorcycle:
+      settings:
+        MoveSettings:
+          Multiplier: 100
+          MoveForce: 4000
+          TurnForce: 1500
+        FlowingSettings:
+          FlowingDistance: 5
+          FlowingFrequency: 3
+    PlayerFlyingCar:
+      settings:
+        MoveSettings:
+          Multiplier: 90
+          MoveForce: 5000
+          TurnForce: 1000
+        FlowingSettings:
+          FlowingDistance: 5
+          FlowingFrequency: 3
