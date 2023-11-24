@@ -6,12 +6,13 @@ using Zenject;
 public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 {
     [SerializeField] private CarSettings carSettings;
-    [SerializeField] private CircleSettings circleSettings;
+    [SerializeField] private CircleTweenSettings circleTweenSettings;
+
 
     public override void InstallBindings()
     {
         Container.BindInstance(carSettings);
-        Container.BindInstance(circleSettings);
+        Container.BindInstance(circleTweenSettings);
     }
 
     [Serializable]
@@ -54,16 +55,11 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
             }
         }
     }
+}
 
-
-    [Serializable]
-    public class CircleSettings
-    {
-        [Serializable]
-        public class Settings
-        {
-            public float ScalingSpeed;
-            public float ScalingMultiplier;
-        }
-    }
+[Serializable]
+public class CircleTweenSettings
+{
+    public float ScalingDuration;
+    public float ScalingAmount;
 }

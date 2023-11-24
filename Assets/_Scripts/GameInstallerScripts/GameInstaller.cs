@@ -10,7 +10,17 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private CircleManagerSettings circleManagerSettings;
 
 
-    [Inject] private GameSettingsInstaller.CarSettings _carSettings;
+    private GameSettingsInstaller.CarSettings _carSettings;
+
+    //private CircleTweenSettings _circleTweenSettings;
+
+
+    [Inject]
+    private void Constructor(GameSettingsInstaller.CarSettings carSettings)
+    {
+        _carSettings = carSettings;
+        //_circleTweenSettings = circleTweenSettings;
+    }
 
 
     public override void InstallBindings()
@@ -27,6 +37,7 @@ public class GameInstaller : MonoInstaller
 
         Container.BindInstance(_carSettings.PlayerFlyingCar);
         Container.BindInstance(_carSettings.EnemyMotorcycle);
+        //Container.BindInstance(_circleTweenSettings);
     }
 
     private void InstallManagers()
@@ -56,6 +67,7 @@ public class CarTrailsSettings
 {
     public List<TrailRenderer> Trails = new List<TrailRenderer>();
 }
+
 
 [System.Serializable]
 public class CircleManagerSettings

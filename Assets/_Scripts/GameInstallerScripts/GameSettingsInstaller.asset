@@ -31,3 +31,6 @@ MonoBehaviour:
         FlowingSettings:
           FlowingDistance: 5
           FlowingFrequency: 3
+  circleTweenSettings:
+    ScalingDuration: 1
+    ScalingAmount: 3
