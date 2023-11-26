@@ -46,3 +46,8 @@ MonoBehaviour:
       type: 3}
     ArrowOffsetSettings:
       Offset: {x: 0, y: 12, z: 0}
+  enemySpawnSettings:
+    Motorcycle:
+      EnemyPrefab: {fileID: 6757988968940548789, guid: 08d5361c319f6024d80c3cead7d4ae84,
+        type: 3}
+      SpawnAmount: 12

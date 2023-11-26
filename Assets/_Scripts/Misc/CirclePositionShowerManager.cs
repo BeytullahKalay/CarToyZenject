@@ -3,9 +3,9 @@ using Zenject;
 
 public class CirclePositionShowerManager : ITickable
 {
-    private Player _player;
-    private NavigationArrowSettings.ArrowOffset _arrowOffset;
-    private NavigationArrowFactory _navigationArrowFactory;
+    private readonly Player _player;
+    private readonly NavigationArrowSettings.ArrowOffset _arrowOffset;
+    private readonly NavigationArrowFactory _navigationArrowFactory;
 
     private Transform _navigationArrowTransform;
 

@@ -1,18 +1,18 @@
 using System;
-using System.Diagnostics;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
 public class CircleManager : IInitializable, IDisposable
 {
+    private readonly SignalBus _onTriggeredWithCircle;
+    private readonly CircleTweenSettings _circleTweenSettings;
+    private readonly SpawnCircleFactory _spawnCircleFactory;
+    private readonly TerrainPositionCalculation _positionCalculation;
+    private readonly CirclePositionShowerManager _circlePositionShowerManager;
+    
     private int _currentCircle;
-    private SignalBus _onTriggeredWithCircle;
-    private CircleTweenSettings _circleTweenSettings;
-    private SpawnCircleFactory _spawnCircleFactory;
     private GameObject _circle;
-    private TerrainPositionCalculation _positionCalculation;
-    private CirclePositionShowerManager _circlePositionShowerManager;
 
     public void Initialize()
     {

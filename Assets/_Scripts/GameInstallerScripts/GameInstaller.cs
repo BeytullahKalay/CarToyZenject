@@ -13,16 +13,18 @@ public class GameInstaller : MonoInstaller
     private SpawnCircleSettings _spawnCircleSettings;
     private BorderSettings _borderSettings;
     private NavigationArrowSettings _navigationArrowSettings;
-
+    private EnemySpawnSettings _enemySpawnSettings;
 
     [Inject]
     private void Constructor(CarSettings carSettings, SpawnCircleSettings spawnCircleSettings,
-        BorderSettings borderSettings, NavigationArrowSettings navigationArrowSettings)
+        BorderSettings borderSettings, NavigationArrowSettings navigationArrowSettings,
+        EnemySpawnSettings enemySpawnSettings)
     {
         _carSettings = carSettings;
         _spawnCircleSettings = spawnCircleSettings;
         _borderSettings = borderSettings;
         _navigationArrowSettings = navigationArrowSettings;
+        _enemySpawnSettings = enemySpawnSettings;
     }
 
 
@@ -38,6 +40,8 @@ public class GameInstaller : MonoInstaller
         InstallSignals();
 
         InstallObjects();
+
+        InstallEnemy();
 
         InstallMisc();
 
@@ -58,6 +62,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CircleManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerCarTrailManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CirclePositionShowerManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
     }
 
     private void InstallObjects()
@@ -75,7 +80,6 @@ public class GameInstaller : MonoInstaller
     private void InstallMisc()
     {
         Container.Bind<TerrainPositionCalculation>().AsSingle();
-
         Container.BindInstance(_borderSettings.Border);
         Container.BindInstance(_navigationArrowSettings.ArrowOffsetSettings);
     }
@@ -87,5 +91,16 @@ public class GameInstaller : MonoInstaller
 
         Container.BindFactory<Transform, NavigationArrowFactory>()
             .FromComponentInNewPrefab(_navigationArrowSettings.NavigationArrowPrefab);
+
+
+        // It did not feel right
+        Container.BindFactory<Transform, EnemySpawFactory>()
+            .FromComponentInNewPrefab(_enemySpawnSettings.Motorcycle.EnemyPrefab);
+    }
+
+    private void InstallEnemy()
+    {
+        // It did not feel right
+        Container.BindInstance(_enemySpawnSettings.Motorcycle);
     }
 }

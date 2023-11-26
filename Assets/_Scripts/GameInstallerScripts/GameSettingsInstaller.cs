@@ -9,6 +9,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
     [SerializeField] private CircleTweenSettings circleTweenSettings;
     [SerializeField] private BorderSettings borderSettings;
     [SerializeField] private NavigationArrowSettings navigationArrowSettings;
+    [SerializeField] private EnemySpawnSettings enemySpawnSettings;
 
 
     public override void InstallBindings()
@@ -18,5 +19,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
         Container.BindInstance(spawnCircleSettings);
         Container.BindInstance(borderSettings);
         Container.BindInstance(navigationArrowSettings);
+        Container.BindInstance(enemySpawnSettings);
     }
 }
