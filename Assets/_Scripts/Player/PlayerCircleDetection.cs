@@ -16,7 +16,7 @@ public class PlayerCircleDetection : MonoBehaviour
     {
         if (other.CompareTag("Circle"))
         {
-            _onTriggeredWithCircle.Fire(new OnTriggeredWithCircle());
+            _onTriggeredWithCircle.Fire(new OnTriggeredWithCircleSignal());
         }
     }
 }

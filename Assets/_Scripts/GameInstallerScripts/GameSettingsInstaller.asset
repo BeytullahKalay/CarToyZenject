@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1a1b22ada61fb49a06f76ac672d4db, type: 3}
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
+  spawnCircleSettings:
+    SpawnCircle: {fileID: 6026732193173410061, guid: b5b691ffe78f0c542b4f452929e699d3,
+      type: 3}
   carSettings:
     EnemyMotorcycle:
       settings:
@@ -34,3 +37,12 @@ MonoBehaviour:
   circleTweenSettings:
     ScalingDuration: 1
     ScalingAmount: 3
+  borderSettings:
+    Border:
+      UpperRight: {x: 896.3, y: 877.6}
+      LowerLeft: {x: 119.1, y: 87.1}
+  navigationArrowSettings:
+    NavigationArrowPrefab: {fileID: 4774026059075097974, guid: 642b43ed83e43dd40971820f38c8d7d4,
+      type: 3}
+    ArrowOffsetSettings:
+      Offset: {x: 0, y: 12, z: 0}

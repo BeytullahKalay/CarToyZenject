@@ -3,7 +3,7 @@ using Zenject;
 public class EnemyMotorcycleFlyingCar : FlyingCar
 {
     [Inject]
-    private void Constructor(GameSettingsInstaller.CarSettings.EnemyMotorcycleSetting carSettings)
+    private void Constructor(CarSettings.EnemyMotorcycleSetting carSettings)
     {
         var settings = carSettings.settings;
         Multiplier = settings.MoveSettings.Multiplier;

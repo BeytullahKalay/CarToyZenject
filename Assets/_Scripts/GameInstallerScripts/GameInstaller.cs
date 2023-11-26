@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -7,19 +6,23 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private CarTrailsSettings carTrailsSettings;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
-    [SerializeField] private CircleManagerSettings circleManagerSettings;
+    [SerializeField] private Terrain terrain;
 
 
-    private GameSettingsInstaller.CarSettings _carSettings;
-
-    //private CircleTweenSettings _circleTweenSettings;
+    private CarSettings _carSettings;
+    private SpawnCircleSettings _spawnCircleSettings;
+    private BorderSettings _borderSettings;
+    private NavigationArrowSettings _navigationArrowSettings;
 
 
     [Inject]
-    private void Constructor(GameSettingsInstaller.CarSettings carSettings)
+    private void Constructor(CarSettings carSettings, SpawnCircleSettings spawnCircleSettings,
+        BorderSettings borderSettings, NavigationArrowSettings navigationArrowSettings)
     {
         _carSettings = carSettings;
-        //_circleTweenSettings = circleTweenSettings;
+        _spawnCircleSettings = spawnCircleSettings;
+        _borderSettings = borderSettings;
+        _navigationArrowSettings = navigationArrowSettings;
     }
 
 
@@ -28,49 +31,61 @@ public class GameInstaller : MonoInstaller
         // Create a new instance of Foo for every class that asks for an IFoo
         //Container.Bind<IFoo>().To<Foo>().AsTransient();
 
-
-        InstallObjectsAndScripts();
+        InstallSceneScripts();
 
         InstallManagers();
 
         InstallSignals();
 
-        Container.BindInstance(_carSettings.PlayerFlyingCar);
-        Container.BindInstance(_carSettings.EnemyMotorcycle);
-        //Container.BindInstance(_circleTweenSettings);
+        InstallObjects();
+
+        InstallMisc();
+
+        InstallFactories();
+    }
+
+
+    private void InstallSceneScripts()
+    {
+        Container.Bind<PlayerInput>().FromInstance(playerInput).AsSingle();
+        Container.Bind<Player>().FromInstance(player).AsSingle();
+        Container.Bind<CarTrailsSettings>().FromInstance(carTrailsSettings).AsSingle();
+        Container.Bind<Terrain>().FromInstance(terrain).AsSingle();
     }
 
     private void InstallManagers()
     {
         Container.BindInterfacesAndSelfTo<CircleManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerCarTrailManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CirclePositionShowerManager>().AsSingle();
     }
 
-    private void InstallObjectsAndScripts()
+    private void InstallObjects()
     {
-        Container.Bind<PlayerInput>().FromInstance(playerInput).AsSingle();
-        Container.Bind<Player>().FromInstance(player).AsSingle();
-        Container.Bind<CircleManagerSettings>().FromInstance(circleManagerSettings);
-        Container.Bind<CarTrailsSettings>().FromInstance(carTrailsSettings).AsSingle();
+        Container.BindInstance(_carSettings.PlayerFlyingCar);
+        Container.BindInstance(_carSettings.EnemyMotorcycle);
     }
 
     private void InstallSignals()
     {
         SignalBusInstaller.Install(Container);
-
-        Container.DeclareSignal<OnTriggeredWithCircle>();
+        Container.DeclareSignal<OnTriggeredWithCircleSignal>();
     }
-}
 
-[System.Serializable]
-public class CarTrailsSettings
-{
-    public List<TrailRenderer> Trails = new List<TrailRenderer>();
-}
+    private void InstallMisc()
+    {
+        Container.Bind<TerrainPositionCalculation>().AsSingle();
 
+        Container.BindInstance(_borderSettings.Border);
+        Container.BindInstance(_navigationArrowSettings.ArrowOffsetSettings);
+    }
 
-[System.Serializable]
-public class CircleManagerSettings
-{
-    public List<GameObject> Circles = new List<GameObject>();
+    private void InstallFactories()
+    {
+        Container.BindFactory<Transform, SpawnCircleFactory>()
+            .FromComponentInNewPrefab(_spawnCircleSettings.SpawnCircle);
+
+        Container.BindFactory<Transform, NavigationArrowFactory>()
+            .FromComponentInNewPrefab(_navigationArrowSettings.NavigationArrowPrefab);
+    }
 }
