@@ -13,12 +13,6 @@ public class CircleManager : IInitializable, IDisposable
     
     private int _currentCircle;
     private GameObject _circle;
-
-    public void Initialize()
-    {
-        _onTriggeredWithCircle.Subscribe<OnTriggeredWithCircleSignal>(OnTriggeredActions);
-    }
-
     public CircleManager(SignalBus onTriggeredWithCircle
         , CircleTweenSettings circleTweenSettings, SpawnCircleFactory spawnCircleFactory,
         TerrainPositionCalculation positionCalculation,CirclePositionShowerManager circlePositionShowerManager)
@@ -31,6 +25,7 @@ public class CircleManager : IInitializable, IDisposable
 
         InitializeCircle();
     }
+
 
     private void InitializeCircle()
     {
@@ -45,6 +40,11 @@ public class CircleManager : IInitializable, IDisposable
         // Use tween to make animation
         _circle.transform.DOScale(Vector3.one * _circleTweenSettings.ScalingAmount,
             _circleTweenSettings.ScalingDuration).SetRelative().SetLoops(-1, LoopType.Yoyo);
+    }
+    
+    public void Initialize()
+    {
+        _onTriggeredWithCircle.Subscribe<OnTriggeredWithCircleSignal>(OnTriggeredActions);
     }
 
     private void SetPositionOfCircle()

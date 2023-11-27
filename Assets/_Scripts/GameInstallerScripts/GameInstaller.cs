@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +8,8 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
     [SerializeField] private Terrain terrain;
+    [SerializeField] private TMP_Text counterText;
+    
 
 
     private CarSettings _carSettings;
@@ -57,6 +60,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<Player>().FromInstance(player).AsSingle();
         Container.Bind<CarTrailsSettings>().FromInstance(carTrailsSettings).AsSingle();
         Container.Bind<Terrain>().FromInstance(terrain).AsSingle();
+        Container.Bind<TMP_Text>().FromInstance(counterText).AsSingle();
     }
 
     private void InstallManagers()
@@ -66,6 +70,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CirclePositionShowerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<TimerManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CircleCounterManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CircleCounterTMPTextManager>().AsSingle();
     }
 
     private void InstallObjects()
@@ -78,6 +84,7 @@ public class GameInstaller : MonoInstaller
     {
         SignalBusInstaller.Install(Container);
         Container.DeclareSignal<OnTriggeredWithCircleSignal>();
+        Container.DeclareSignal<UpdateCircleCounterUITextSignal>();
     }
 
     private void InstallMisc()

@@ -21,7 +21,5 @@ public class TimerManager : ITickable, IInitializable
             _minute++;
             _second %= 60;
         }
-
-        Debug.Log($"[{_minute},{(int)_second}]");
     }
 }
