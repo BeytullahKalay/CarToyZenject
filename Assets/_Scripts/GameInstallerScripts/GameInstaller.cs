@@ -14,17 +14,19 @@ public class GameInstaller : MonoInstaller
     private BorderSettings _borderSettings;
     private NavigationArrowSettings _navigationArrowSettings;
     private EnemySpawnSettings _enemySpawnSettings;
+    private CameraSettings _cameraSettings;
 
     [Inject]
     private void Constructor(CarSettings carSettings, SpawnCircleSettings spawnCircleSettings,
         BorderSettings borderSettings, NavigationArrowSettings navigationArrowSettings,
-        EnemySpawnSettings enemySpawnSettings)
+        EnemySpawnSettings enemySpawnSettings,CameraSettings cameraSettings)
     {
         _carSettings = carSettings;
         _spawnCircleSettings = spawnCircleSettings;
         _borderSettings = borderSettings;
         _navigationArrowSettings = navigationArrowSettings;
         _enemySpawnSettings = enemySpawnSettings;
+        _cameraSettings = cameraSettings;
     }
 
 
@@ -63,6 +65,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayerCarTrailManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CirclePositionShowerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<TimerManager>().AsSingle();
     }
 
     private void InstallObjects()
@@ -82,6 +85,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<TerrainPositionCalculation>().AsSingle();
         Container.BindInstance(_borderSettings.Border);
         Container.BindInstance(_navigationArrowSettings.ArrowOffsetSettings);
+        Container.BindInstance(_cameraSettings.Setting);
     }
 
     private void InstallFactories()
@@ -93,14 +97,14 @@ public class GameInstaller : MonoInstaller
             .FromComponentInNewPrefab(_navigationArrowSettings.NavigationArrowPrefab);
 
 
-        // It did not feel right
+        // It doesn't feel right
         Container.BindFactory<Transform, EnemySpawFactory>()
             .FromComponentInNewPrefab(_enemySpawnSettings.Motorcycle.EnemyPrefab);
     }
 
     private void InstallEnemy()
     {
-        // It did not feel right
+        // It doesn't feel right
         Container.BindInstance(_enemySpawnSettings.Motorcycle);
     }
 }
