@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class GameInstaller : MonoInstaller
@@ -9,6 +10,8 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private Player player;
     [SerializeField] private Terrain terrain;
     [SerializeField] private TMP_Text counterText;
+    [FormerlySerializedAs("_poolerManager")] [SerializeField] private PoolerManager poolerManager;
+    
     
 
 
@@ -61,6 +64,8 @@ public class GameInstaller : MonoInstaller
         Container.Bind<CarTrailsSettings>().FromInstance(carTrailsSettings).AsSingle();
         Container.Bind<Terrain>().FromInstance(terrain).AsSingle();
         Container.Bind<TMP_Text>().FromInstance(counterText).AsSingle();
+        Container.Bind<PoolerManager>().FromInstance(poolerManager).AsSingle();
+
     }
 
     private void InstallManagers()
