@@ -5,6 +5,7 @@ public class EnemyInput : MonoBehaviour, ICarInput
 {
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
+    public bool InputActive { get; set; } = true;
 
     private Player _player;
 
@@ -22,13 +23,25 @@ public class EnemyInput : MonoBehaviour, ICarInput
 
     private void LateUpdate()
     {
+        if (!InputActive) return;
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
         var delta = _player.Position - transform.position;
         delta.y = 0;
         delta.Normalize();
 
-
         var dotProduct = Vector3.Dot(delta, transform.right);
         HorizontalInput = dotProduct;
         VerticalInput = 1;
+    }
+    
+    public void DisableInput()
+    {
+        InputActive = false;
+        VerticalInput = 0;
+        HorizontalInput = 0;
     }
 }

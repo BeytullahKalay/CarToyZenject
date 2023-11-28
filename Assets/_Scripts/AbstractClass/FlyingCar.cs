@@ -16,13 +16,13 @@ public abstract class FlyingCar : MonoBehaviour
     private RaycastHit[] hits = new RaycastHit[4];
 
 
-    private ICarInput _carInput;
+    protected ICarInput CarInput;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _carInput = GetComponent<ICarInput>();
+        CarInput = GetComponent<ICarInput>();
     }
 
 
@@ -31,8 +31,8 @@ public abstract class FlyingCar : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             ApplyForce(anchors[i], hits[i]);
-            _rb.AddForce(_carInput.VerticalInput * MoveForce * transform.forward);
-            _rb.AddTorque(_carInput.HorizontalInput * TurnTorque * transform.up);
+            _rb.AddForce(CarInput.VerticalInput * MoveForce * transform.forward);
+            _rb.AddTorque(CarInput.HorizontalInput * TurnTorque * transform.up);
         }
     }
 
