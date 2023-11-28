@@ -15445,7 +15445,6 @@ GameObject:
   - component: {fileID: 5517718770632311173}
   - component: {fileID: 8997610614568408278}
   - component: {fileID: 7391833610792625087}
-  - component: {fileID: 8187918286672607818}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -15518,27 +15517,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8187918286672607818
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5349459605982305272}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5533689211981756530
 GameObject:
   m_ObjectHideFlags: 0
@@ -18476,7 +18454,7 @@ GameObject:
   - component: {fileID: 4735872254818102279}
   m_Layer: 0
   m_Name: MotorcycleEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18570,6 +18548,11 @@ MonoBehaviour:
   - {fileID: 4336139139704182170}
   - {fileID: 2127492965951265083}
   - {fileID: 3763022641756935578}
+  minCollisionForce: 200
+  particleFx:
+  - {fileID: 9105476693112887199}
+  - {fileID: 466289854459555139}
+  - {fileID: 1251052038000091964}
 --- !u!114 &4735872254818102279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19110,7 +19093,6 @@ GameObject:
   - component: {fileID: 7522987336064471094}
   - component: {fileID: 7377155285236721005}
   - component: {fileID: 3851029728968433306}
-  - component: {fileID: 7457169508284511463}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -19183,27 +19165,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7457169508284511463
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7810847879424608091}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7827488035816375853
 GameObject:
   m_ObjectHideFlags: 0

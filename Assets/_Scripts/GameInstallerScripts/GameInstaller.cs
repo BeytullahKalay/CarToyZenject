@@ -90,6 +90,7 @@ public class GameInstaller : MonoInstaller
     private void InstallMisc()
     {
         Container.Bind<TerrainPositionCalculation>().AsSingle();
+        Container.Bind<VehicleDestroyAnimationManager>().AsTransient();
         Container.BindInstance(_borderSettings.Border);
         Container.BindInstance(_navigationArrowSettings.ArrowOffsetSettings);
         Container.BindInstance(_cameraSettings.Setting);
