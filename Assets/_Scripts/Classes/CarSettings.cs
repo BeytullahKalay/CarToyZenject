@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class CarSettings
@@ -23,6 +24,8 @@ public class CarSettings
     {
         public Move MoveSettings;
         public Flowing FlowingSettings;
+        public Stabillization StabillizationSettings;
+        public Crash CrashSettings;
 
         [Serializable]
         public class Move
@@ -37,6 +40,19 @@ public class CarSettings
         {
             public float FlowingDistance;
             public float FlowingFrequency;
+        }
+        
+        [Serializable]
+        public class Stabillization
+        {
+            public float StabilizationLerpForce;
+            public LayerMask WhatIsGround;
+        }
+        
+        [Serializable]
+        public class Crash
+        {
+            public float MinCrashForce;
         }
     }
 }
