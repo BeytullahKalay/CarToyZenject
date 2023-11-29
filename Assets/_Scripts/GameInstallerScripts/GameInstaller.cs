@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class GameInstaller : MonoInstaller
@@ -10,9 +9,7 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private Player player;
     [SerializeField] private Terrain terrain;
     [SerializeField] private TMP_Text counterText;
-    [FormerlySerializedAs("_poolerManager")] [SerializeField] private PoolerManager poolerManager;
-    
-    
+    [SerializeField] private PoolerManager poolerManager;
 
 
     private CarSettings _carSettings;
@@ -25,7 +22,7 @@ public class GameInstaller : MonoInstaller
     [Inject]
     private void Constructor(CarSettings carSettings, SpawnCircleSettings spawnCircleSettings,
         BorderSettings borderSettings, NavigationArrowSettings navigationArrowSettings,
-        EnemySpawnSettings enemySpawnSettings,CameraSettings cameraSettings)
+        EnemySpawnSettings enemySpawnSettings, CameraSettings cameraSettings)
     {
         _carSettings = carSettings;
         _spawnCircleSettings = spawnCircleSettings;
@@ -40,6 +37,14 @@ public class GameInstaller : MonoInstaller
     {
         // Create a new instance of Foo for every class that asks for an IFoo
         //Container.Bind<IFoo>().To<Foo>().AsTransient();
+
+        //Container.Bind<ICarInput>().To<PlayerInput>().AsSingle().WhenInjectedInto<PlayerFlyingCarHealthSystem>();
+
+        Container.Bind<ICarInput>().To<EnemyInput>().FromComponentInHierarchy().AsTransient()
+            .WhenInjectedInto<MotorcycleEnemyHealthSystem>();
+        Container.Bind<ICarInput>().To<PlayerInput>().FromComponentInHierarchy().AsTransient()
+            .WhenInjectedInto<PlayerFlyingCarHealthSystem>();
+        
 
         InstallSceneScripts();
 
@@ -65,7 +70,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<Terrain>().FromInstance(terrain).AsSingle();
         Container.Bind<TMP_Text>().FromInstance(counterText).AsSingle();
         Container.Bind<PoolerManager>().FromInstance(poolerManager).AsSingle();
-
     }
 
     private void InstallManagers()
@@ -108,7 +112,6 @@ public class GameInstaller : MonoInstaller
 
         Container.BindFactory<Transform, NavigationArrowFactory>()
             .FromComponentInNewPrefab(_navigationArrowSettings.NavigationArrowPrefab);
-
 
         // It doesn't feel right
         Container.BindFactory<Transform, EnemySpawFactory>()

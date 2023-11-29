@@ -18449,9 +18449,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6757988968940548789}
   - component: {fileID: 6136153544552134855}
-  - component: {fileID: 4759347529306385330}
   - component: {fileID: 8413992564123337079}
   - component: {fileID: 4735872254818102279}
+  - component: {fileID: 4425254252437819817}
+  - component: {fileID: 2372606450580642115}
   m_Layer: 0
   m_Name: MotorcycleEnemy
   m_TagString: Enemy
@@ -18506,27 +18507,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!65 &4759347529306385330
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7122686720170211825}
-  m_Material: {fileID: 13400000, guid: 424b29cc954980b4292903d23e77eb2a, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 2.6, z: 2.6}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8413992564123337079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18539,20 +18519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ac9bd34d04ddf49bdac042210a37a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stabilizationLerpSpeed: 3
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
   anchors:
   - {fileID: 1495546683042707107}
   - {fileID: 4336139139704182170}
   - {fileID: 2127492965951265083}
   - {fileID: 3763022641756935578}
-  minCollisionForce: 200
-  particleFx:
-  - {fileID: 9105476693112887199}
-  - {fileID: 466289854459555139}
-  - {fileID: 1251052038000091964}
 --- !u!114 &4735872254818102279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18565,6 +18536,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58118548d4c3a834d9d13d218141a347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4425254252437819817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122686720170211825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9faa738ce57b14ea344c4bd292f485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToCloseOnDead:
+  - {fileID: 1251052038000091964}
+  - {fileID: 9105476693112887199}
+  - {fileID: 466289854459555139}
+--- !u!65 &2372606450580642115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122686720170211825}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.81, y: 2.2, z: 2.5}
+  m_Center: {x: 0, y: 0.03, z: 0}
 --- !u!1 &7137090915650042114
 GameObject:
   m_ObjectHideFlags: 0

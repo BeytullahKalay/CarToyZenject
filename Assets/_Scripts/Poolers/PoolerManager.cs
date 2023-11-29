@@ -24,8 +24,12 @@ public class PoolerManager : MonoBehaviour
         var pool = new ObjectPool<GameObject>(
             () => { return Instantiate(objectToPool.PoolingGameObject); },
             pooledObj => { pooledObj.gameObject.SetActive(true); },
-            pooledObj => { pooledObj.gameObject.SetActive(false); },
-            pooledObj => { Destroy(pooledObj.gameObject); }, 
+            pooledObj =>
+            {
+                if (Application.isPlaying)
+                    pooledObj.gameObject.SetActive(false);
+            },
+            pooledObj => { Destroy(pooledObj.gameObject); },
             false, objectToPool.PoolAmount, maxPoolingAmount);
 
         if (!AllPooledGameObjectsDictionary.ContainsKey(objectToPool.PooledObjectType))

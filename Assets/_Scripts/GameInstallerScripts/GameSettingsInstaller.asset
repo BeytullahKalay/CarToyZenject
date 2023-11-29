@@ -25,6 +25,13 @@ MonoBehaviour:
         FlowingSettings:
           FlowingDistance: 5
           FlowingFrequency: 3
+        StabillizationSettings:
+          StabilizationLerpForce: 3
+          WhatIsGround:
+            serializedVersion: 2
+            m_Bits: 64
+        CrashSettings:
+          MinCrashForce: 300
     PlayerFlyingCar:
       settings:
         MoveSettings:
@@ -34,6 +41,13 @@ MonoBehaviour:
         FlowingSettings:
           FlowingDistance: 5
           FlowingFrequency: 3
+        StabillizationSettings:
+          StabilizationLerpForce: 3
+          WhatIsGround:
+            serializedVersion: 2
+            m_Bits: 64
+        CrashSettings:
+          MinCrashForce: 500
   circleTweenSettings:
     ScalingDuration: 1
     ScalingAmount: 3
@@ -50,14 +64,8 @@ MonoBehaviour:
     Motorcycle:
       EnemyPrefab: {fileID: 6757988968940548789, guid: 08d5361c319f6024d80c3cead7d4ae84,
         type: 3}
-      SpawnAmount: 12
+      SpawnAmount: 10
   cameraSettings:
     Setting:
       ClampPositionsMinMax: {x: -30, y: 70}
       CameraRotateSpeed: 5
-  poolingSettings:
-    Pool:
-    - PoolName: ExplosionDust
-      PoolObject: {fileID: 5431760768476794014, guid: af5a3d2baf3c06543985350ec041c614,
-        type: 3}
-      PoolAmount: 30

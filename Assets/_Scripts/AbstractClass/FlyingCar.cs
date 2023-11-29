@@ -2,43 +2,50 @@ using UnityEngine;
 
 public abstract class FlyingCar : MonoBehaviour
 {
-    [SerializeField] private float stabilizationLerpSpeed = 3;
-    [SerializeField] private LayerMask whatIsGround;
     [SerializeField] Transform[] anchors = new Transform[4];
     
-    private Rigidbody _rb;
+    
     protected float Multiplier;
     protected float FlowingDistance;
     protected float MoveForce, TurnTorque;
-    protected float FlowingFrequency = 3;
-
+    protected float FlowingFrequency;
     
+    protected float StabilizationLerpForce;
+    protected LayerMask WhatIsGround;
+
+    protected float MinCrashForce;
+
+
+    public bool Fly { get; set; } = true;
+
+
+    private Rigidbody _rb;
     private RaycastHit[] hits = new RaycastHit[4];
-
-
-    protected ICarInput CarInput;
+    private ICarInput _carInput;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        CarInput = GetComponent<ICarInput>();
+        _carInput = GetComponent<ICarInput>();
     }
 
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
+        if(!Fly) return;
+        
         for (int i = 0; i < 4; i++)
         {
             ApplyForce(anchors[i], hits[i]);
-            _rb.AddForce(CarInput.VerticalInput * MoveForce * transform.forward);
-            _rb.AddTorque(CarInput.HorizontalInput * TurnTorque * transform.up);
+            _rb.AddForce(_carInput.VerticalInput * MoveForce * transform.forward);
+            _rb.AddTorque(_carInput.HorizontalInput * TurnTorque * transform.up);
         }
     }
 
     private void ApplyForce(Transform anchor, RaycastHit hit)
     {
-        if (Physics.Raycast(anchor.position, -anchor.up * 3, out hit,whatIsGround))
+        if (Physics.Raycast(anchor.position, -anchor.up * 3, out hit,WhatIsGround))
         {
             var movingFlowDistance = FlowingDistance * Mathf.Sin(Time.time * FlowingFrequency);
             float force = Mathf.Abs(1 / (hit.point.y - anchor.position.y));
@@ -48,7 +55,7 @@ public abstract class FlyingCar : MonoBehaviour
         else
         {
             var tRot = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, 0));
-            transform.rotation = Quaternion.Slerp(transform.rotation, tRot, stabilizationLerpSpeed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, tRot, StabilizationLerpForce * Time.fixedDeltaTime);
         }
     }
 }
