@@ -11,5 +11,8 @@ public class PlayerFlyingCar : FlyingCar
         TurnTorque = settings.MoveSettings.TurnForce;
         FlowingDistance = settings.FlowingSettings.FlowingDistance;
         FlowingFrequency = settings.FlowingSettings.FlowingFrequency;
+        StabilizationLerpForce = settings.StabillizationSettings.StabilizationLerpForce;
+        WhatIsGround = settings.StabillizationSettings.WhatIsGround;
+        MinCrashForce = settings.CrashSettings.MinCrashForce;
     }
 }
