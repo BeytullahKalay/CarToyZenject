@@ -79,6 +79,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<TimerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CircleCounterManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CircleCounterTMPTextManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameState>().AsSingle();
     }
 
     private void InstallObjects()
@@ -93,6 +94,8 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<OnTriggeredWithCircleSignal>();
         Container.DeclareSignal<UpdateCircleCounterUITextSignal>();
         Container.DeclareSignal<OnEnemyDeadSignal>();
+        Container.DeclareSignal<OnGameOverSignal>();
+        Container.DeclareSignal<OnGameStartSignal>();
     }
 
     private void InstallMisc()

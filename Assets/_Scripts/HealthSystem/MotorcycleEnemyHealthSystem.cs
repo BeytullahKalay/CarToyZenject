@@ -12,7 +12,7 @@ public class MotorcycleEnemyHealthSystem : VeryBasicHealthSystem
     private ICarInput _carInput;
     private FlyingCar _enemyMotorcycleFlyingCar;
     private SignalBus _onEnemyDeadSignal;
-
+    private GameState _gameState;
 
     private void Awake()
     {
@@ -39,15 +39,18 @@ public class MotorcycleEnemyHealthSystem : VeryBasicHealthSystem
 
     [Inject]
     private void Constructor(CarSettings.EnemyMotorcycleSetting playerFlyingCarSetting, ICarInput carInput,
-        SignalBus onEnemyDeadSignal)
+        SignalBus onEnemyDeadSignal,GameState gameState)
     {
         MinCollisionForce = playerFlyingCarSetting.settings.CrashSettings.MinCrashForce;
         _carInput = carInput;
         _onEnemyDeadSignal = onEnemyDeadSignal;
+        _gameState = gameState;
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        if (_gameState.State != GameStates.Run) return;
+
         if (!IsAlive) return;
 
         if (!other.gameObject.CompareTag("Enemy") && !other.gameObject.CompareTag("Player")) return;
@@ -55,9 +58,7 @@ public class MotorcycleEnemyHealthSystem : VeryBasicHealthSystem
         var collisionForce = other.impulse / Time.fixedDeltaTime;
 
         if (collisionForce.magnitude < MinCollisionForce) return;
-
-        Debug.Log(collisionForce.magnitude);
-
+        
         OnDeadActions?.Invoke();
     }
 

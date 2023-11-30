@@ -7,10 +7,22 @@ public class PlayerFlyingCarHealthSystem : VeryBasicHealthSystem
 {
     private ICarInput _carInput;
     private FlyingCar _flyingCar;
+    private GameState _gameState;
+    private SignalBus _onGameOverSignal;
 
     private void Awake()
     {
-        _flyingCar = GetComponent<FlyingCar>();
+        _flyingCar = GetComponent<FlyingCar>(); // <------ THIS IS REAL BAD
+    }
+    
+    [Inject]
+    private void Constructor(CarSettings.PlayerFlyingCarSetting playerFlyingCarSetting, ICarInput carInput,
+        GameState gameState,SignalBus onGameOverSignal)
+    {
+        MinCollisionForce = playerFlyingCarSetting.settings.CrashSettings.MinCrashForce;
+        _carInput = carInput;
+        _gameState = gameState;
+        _onGameOverSignal = onGameOverSignal;
     }
 
     protected override void OnEnable()
@@ -18,6 +30,7 @@ public class PlayerFlyingCarHealthSystem : VeryBasicHealthSystem
         base.OnEnable();
         OnDeadActions += OnCrash;
         OnDeadActions += StopFlying;
+        OnDeadActions += FireGameOverSignal;
     }
 
     protected override void OnDisable()
@@ -25,16 +38,8 @@ public class PlayerFlyingCarHealthSystem : VeryBasicHealthSystem
         base.OnDisable();
         OnDeadActions -= StopFlying;
         OnDeadActions -= OnCrash;
+        OnDeadActions -= FireGameOverSignal;
     }
-
-
-    [Inject]
-    private void Constructor(CarSettings.PlayerFlyingCarSetting playerFlyingCarSetting, ICarInput carInput)
-    {
-        MinCollisionForce = playerFlyingCarSetting.settings.CrashSettings.MinCrashForce;
-        _carInput = carInput;
-    }
-
 
     private void OnCollisionEnter(Collision other)
     {
@@ -71,5 +76,10 @@ public class PlayerFlyingCarHealthSystem : VeryBasicHealthSystem
     {
         await Task.Delay((int)(duration * 1000));
         pool.Release(pooledObj);
+    }
+
+    private void FireGameOverSignal()
+    {
+        _onGameOverSignal.Fire(new OnGameOverSignal());
     }
 }

@@ -3,8 +3,8 @@ using Zenject;
 
 public class EnemyInput : MonoBehaviour, ICarInput
 {
-    public float HorizontalInput { get; private set; }
-    public float VerticalInput { get; private set; }
+    public float HorizontalInput { get;  set; }
+    public float VerticalInput { get;  set; }
     public bool InputActive { get; set; } = true;
 
     private Player _player;
