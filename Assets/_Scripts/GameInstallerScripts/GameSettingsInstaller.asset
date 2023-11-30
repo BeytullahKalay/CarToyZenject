@@ -20,7 +20,7 @@ MonoBehaviour:
       settings:
         MoveSettings:
           Multiplier: 100
-          MoveForce: 4000
+          MoveForce: 5000
           TurnForce: 1500
         FlowingSettings:
           FlowingDistance: 5
@@ -31,7 +31,7 @@ MonoBehaviour:
             serializedVersion: 2
             m_Bits: 64
         CrashSettings:
-          MinCrashForce: 300
+          MinCrashForce: 70000
     PlayerFlyingCar:
       settings:
         MoveSettings:
@@ -47,7 +47,7 @@ MonoBehaviour:
             serializedVersion: 2
             m_Bits: 64
         CrashSettings:
-          MinCrashForce: 500
+          MinCrashForce: 85000
   circleTweenSettings:
     ScalingDuration: 1
     ScalingAmount: 3
@@ -64,7 +64,7 @@ MonoBehaviour:
     Motorcycle:
       EnemyPrefab: {fileID: 6757988968940548789, guid: 08d5361c319f6024d80c3cead7d4ae84,
         type: 3}
-      SpawnAmount: 10
+      SpawnAmount: 30
   cameraSettings:
     Setting:
       ClampPositionsMinMax: {x: -30, y: 70}

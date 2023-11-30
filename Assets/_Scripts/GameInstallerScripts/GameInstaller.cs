@@ -37,9 +37,7 @@ public class GameInstaller : MonoInstaller
     {
         // Create a new instance of Foo for every class that asks for an IFoo
         //Container.Bind<IFoo>().To<Foo>().AsTransient();
-
-        //Container.Bind<ICarInput>().To<PlayerInput>().AsSingle().WhenInjectedInto<PlayerFlyingCarHealthSystem>();
-
+        
         Container.Bind<ICarInput>().To<EnemyInput>().FromComponentInHierarchy().AsTransient()
             .WhenInjectedInto<MotorcycleEnemyHealthSystem>();
         Container.Bind<ICarInput>().To<PlayerInput>().FromComponentInHierarchy().AsTransient()
@@ -94,6 +92,7 @@ public class GameInstaller : MonoInstaller
         SignalBusInstaller.Install(Container);
         Container.DeclareSignal<OnTriggeredWithCircleSignal>();
         Container.DeclareSignal<UpdateCircleCounterUITextSignal>();
+        Container.DeclareSignal<OnEnemyDeadSignal>();
     }
 
     private void InstallMisc()
