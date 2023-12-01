@@ -8,7 +8,6 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
     [SerializeField] private Terrain terrain;
-    [SerializeField] private TMP_Text counterText;
     [SerializeField] private PoolerManager poolerManager;
 
 
@@ -66,7 +65,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<Player>().FromInstance(player).AsSingle();
         Container.Bind<CarTrailsSettings>().FromInstance(carTrailsSettings).AsSingle();
         Container.Bind<Terrain>().FromInstance(terrain).AsSingle();
-        Container.Bind<TMP_Text>().FromInstance(counterText).AsSingle();
         Container.Bind<PoolerManager>().FromInstance(poolerManager).AsSingle();
     }
 
@@ -78,7 +76,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<TimerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CircleCounterManager>().AsSingle();
-        Container.BindInterfacesAndSelfTo<CircleCounterTMPTextManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameState>().AsSingle();
     }
 
