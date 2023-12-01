@@ -43,15 +43,6 @@ public abstract class FlyingCar : MonoBehaviour
         _onGameStart = onGameStart;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print("Fired!");
-            _onGameStart.Fire<OnGameStartSignal>();
-        }
-    }
-
 
     private void FixedUpdate()
     {
