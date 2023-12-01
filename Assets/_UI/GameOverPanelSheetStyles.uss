@@ -1,0 +1,23 @@
+.button {
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    background-color: rgba(161, 96, 49, 0.16);
+    color: rgb(255, 124, 0);
+    font-size: 90px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-sine;
+}
+
+.button:hover {
+    background-color: rgba(192, 126, 63, 0.25);
+}
+
+.button:active {
+    background-color: rgba(200, 124, 52, 0.31);
+}
